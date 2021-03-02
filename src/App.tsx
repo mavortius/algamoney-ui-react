@@ -3,8 +3,8 @@ import Router from './components/Router';
 import useAuthentication from './hooks/useAuthentication';
 
 function App() {
-  const { user } = useAuthentication();
-  return <Router>{user.isAuthenticated && <Navbar />}</Router>;
+  const { authState } = useAuthentication();
+  return <Router>{authState.isAuthenticated && <Navbar />}</Router>;
 }
 
 export default App;

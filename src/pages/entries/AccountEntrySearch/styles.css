@@ -1,0 +1,28 @@
+.p-datatable .p-datatable-thead > tr > th {
+  text-align: center;
+}
+
+.col-value {
+  text-align: right !important;
+}
+
+.col-value-header {
+  width: 120px;
+}
+
+.col-date {
+  text-align: center;
+}
+
+.col-date-header {
+  width: 120px;
+}
+
+.col-actions {
+  width: 90px;
+  text-align: center;
+}
+
+.col-actions-header {
+  width: 90px;
+}

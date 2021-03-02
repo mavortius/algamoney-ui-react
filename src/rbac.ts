@@ -2,6 +2,7 @@ export const Routes = {
   HOME: '/',
   DASHBOARD: '/dashboard',
   LOGIN: '/login',
+  ENTRIES: '/entries',
   PEOPLE: '/people',
   ACCESS_DENIED: '/access-denied',
 };
@@ -22,5 +23,9 @@ export default {
   people: {
     path: Routes.PEOPLE,
     roles: ['ROLE_READ_PERSON'],
+  },
+  entriesSearch: {
+    path: Routes.ENTRIES,
+    roles: ['ROLE_READ_ACCOUNT_ENTRY'],
   },
 };

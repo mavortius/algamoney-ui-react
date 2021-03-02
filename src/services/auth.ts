@@ -1,5 +1,5 @@
 import jwtDecode, { JwtPayload } from 'jwt-decode';
-import appConfig from '../appConfig';
+import appConfig from '../app-config';
 import api from './api';
 
 type Jwt = JwtPayload & {
@@ -18,8 +18,8 @@ type JwtResponse = {
 };
 
 const ACCESS_TOKEN_KEY = 'access-token';
-const tokenUrl = `${api.defaults.baseURL}/oauth/token`;
-const tokensRevokeUrl = `${api.defaults.baseURL}/tokens/revoke`;
+const tokenUrl = `/oauth/token`;
+const tokensRevokeUrl = `/tokens/revoke`;
 
 const getEncodedCredentials = () => {
   const buffer = new Buffer(`${appConfig.clientId}:${appConfig.clientSecret}`);
@@ -64,18 +64,6 @@ export const hasAnyPermission = (permissions: string[]) => {
     }
   }
   return false;
-};
-
-export const getUsername = () => {
-  const accessToken = getAccessToken();
-  if (accessToken) {
-    const jwt = jwtDecode(accessToken) as Jwt;
-    if (jwt) {
-      return jwt.name;
-    }
-    return null;
-  }
-  return null;
 };
 
 const isExpiredToken = (token: string) => {
@@ -124,7 +112,9 @@ export const refreshAccessToken = async () => {
     'Content-Type': 'application/x-www-form-urlencoded',
     Authorization: `Basic ${credentials}`,
   };
+  console.warn('Access token expired. Trying to get new access token...');
   const response = await api.post<JwtResponse>(tokenUrl, body, { headers, withCredentials: true });
   storeToken(response.data.access_token);
+  console.info('Access token updated!');
   return response;
 };

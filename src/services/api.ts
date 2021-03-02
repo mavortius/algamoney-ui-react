@@ -1,7 +1,7 @@
 import axios, { AxiosRequestConfig } from 'axios';
 import * as qs from 'qs';
 import { PathLike } from 'fs';
-import appConfig from '../appConfig';
+import appConfig from '../app-config';
 import * as auth from '../services/auth';
 
 const config: AxiosRequestConfig = {
@@ -31,16 +31,16 @@ api.interceptors.request.use(
 api.interceptors.response.use(
   (response) => response,
   (error) => {
-    const originalRequest = error.config;
-
     if (error.response) {
-      if (error.response.status === 401 && !originalRequest._retry) {
-        originalRequest._retry = true;
-        return auth.refreshAccessToken().then(() => {
-          return api(originalRequest);
+      const response = error.response;
+
+      if (response.status === 401 && response.data?.error === 'invalid_token') {
+        auth.refreshAccessToken().then((response) => {
+          error.config.headers['Authorization'] = `Bearer ${response.data.access_token}`;
+          return api.request(error.config);
         });
       }
-      if (error.response.status === 404) {
+      if (response.status === 404) {
         throw new Error(`${error.config.url} not found`);
       }
       throw new Error(error.response.message);

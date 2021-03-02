@@ -6,7 +6,7 @@ import useAuthentication from '../../hooks/useAuthentication';
 const Navbar = () => {
   const [showMenu, setShowMenu] = useState(false);
   const history = useHistory();
-  const { user, signOut } = useAuthentication();
+  const { authState, signOut } = useAuthentication();
 
   async function handleLogout() {
     await signOut();
@@ -26,7 +26,7 @@ const Navbar = () => {
       </div>
       {showMenu && (
         <ul className="navbar-menu">
-          <li className="navbar-user">{user.name}</li>
+          <li className="navbar-user">{authState.username}</li>
           <li className="navbar-menu-item">
             <NavLink to="/dashboard">Dashboard</NavLink>
           </li>

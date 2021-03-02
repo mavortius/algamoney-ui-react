@@ -1,14 +1,16 @@
 import { atom } from 'recoil';
 
-type User = {
-  name: string;
+export interface AuthenticationState {
+  username: string;
+  expiresIn: number;
   isAuthenticated: boolean;
-};
+}
 
-export const authenticationState = atom<User>({
-  key: 'user',
+export const authenticationState = atom<AuthenticationState>({
+  key: 'authentication',
   default: {
-    name: '',
+    username: 'anonymous',
+    expiresIn: 0,
     isAuthenticated: false,
   },
 });

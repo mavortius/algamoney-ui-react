@@ -31,7 +31,7 @@ const Login = () => {
 
       <form autoComplete="off" onSubmit={login}>
         <div className="p-fluid">
-          <div className="ui-g-12">
+          <div className="p-col-12">
             <h1>Login</h1>
           </div>
           <div className="p-field p-grid">

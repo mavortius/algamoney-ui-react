@@ -1,6 +1,6 @@
 const AccessDenied = () => (
-  <div>
-    <h1>Acesso negado!</h1>
+  <div className="container">
+    <h1 className="text-center">Acesso negado!</h1>
   </div>
 );
 
